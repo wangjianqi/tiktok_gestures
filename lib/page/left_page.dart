@@ -20,6 +20,7 @@ class LeftPage extends StatelessWidget{
   /// 通过 [Transform.scale] 进行根据 [offsetX] 缩放
   /// 最小 0.88 最大为 1
   Transform buildLeftPage(double screenWidth) {
+    ///比例变化
     return Transform.scale(
       scale: 0.88 + 0.12 * offsetX / screenWidth < 0.88 ? 0.88 : 0.88 + 0.12 * offsetX / screenWidth,
       child: Container(
@@ -29,6 +30,7 @@ class LeftPage extends StatelessWidget{
           width: screenWidth,
         ),
         foregroundDecoration: BoxDecoration(
+          ///颜色透明变化
           color: Color.fromRGBO(0, 0, 0, 1 - (offsetX / screenWidth)),
         ),
       ),

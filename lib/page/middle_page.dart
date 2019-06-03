@@ -9,7 +9,8 @@ class MiddlePage extends StatelessWidget {
   final double offsetX;
   final double offsetY;
   final Function onPageChanged;
-  const MiddlePage({Key key, this.offsetX, this.offsetY,this.onPageChanged }) : super(key: key);
+  const MiddlePage({Key key, this.offsetX, this.offsetY, this.onPageChanged})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,18 +32,20 @@ class MiddlePage extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                   child: PageView(
-                    onPageChanged: onPageChanged,
-                    pageSnapping: true,
-                    physics: ClampingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
+                      onPageChanged: onPageChanged,
+                      pageSnapping: true,
+                      physics: ClampingScrollPhysics(),
+                      scrollDirection: Axis.vertical,
                       children: List.generate(
-                    10,
-                    (_) => Image.asset(
-                          "assets/middle.png",
-                          fit: BoxFit.fill,
-                        ),
-                  )),
+                        10,
+                        (_) => Image.asset(
+                              "assets/middle.png",
+                              fit: BoxFit.fill,
+                            ),
+                      )),
                 ),
+
+                ///底部BottomBar
                 Image.asset(
                   "assets/bottom.png",
                   fit: BoxFit.fill,
@@ -50,6 +53,8 @@ class MiddlePage extends StatelessWidget {
               ],
             ),
           ),
+
+          ///header部分
           Padding(
             padding: const EdgeInsets.only(top: 24),
             child: buildHeader(),
@@ -64,6 +69,8 @@ class MiddlePage extends StatelessWidget {
     if (offsetY >= 20) {
       return Opacity(
         opacity: (offsetY - 20) / 20,
+
+        ///移动位置
         child: Transform.translate(
           offset: Offset(0, offsetY),
           child: Container(

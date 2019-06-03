@@ -49,14 +49,13 @@ class _TikTokState extends State<TikTokPage> with TickerProviderStateMixin {
               animateToTop();
             }
           },
-          onVerticalDragCancel: (){
+          onVerticalDragCancel: () {
             debugPrint("onVerticalDragCancel");
           },
-          onVerticalDragStart: (_){
+          onVerticalDragStart: (_) {
             debugPrint("onVerticalDragStart");
-
           },
-          onVerticalDragDown: (_){
+          onVerticalDragDown: (_) {
             debugPrint("onVerticalDragDown");
           },
           // 水平方向滑动结束
@@ -108,12 +107,13 @@ class _TikTokState extends State<TikTokPage> with TickerProviderStateMixin {
   void onPageChanged(index) {
     currentIndex = index;
   }
+
   /// 计算[offsetY]
   ///
   /// 手指上滑,[absorbing]为false，事件交给底层PageView处理
   /// 处于第一页且是下拉，则拦截滑动事件
   void calculateOffsetY(DragUpdateDetails details) {
-    final tempY = offsetY + details.delta.dy/2;
+    final tempY = offsetY + details.delta.dy / 2;
     if (currentIndex == 0) {
       absorbing = true;
       if (tempY > 0) {
@@ -123,8 +123,8 @@ class _TikTokState extends State<TikTokPage> with TickerProviderStateMixin {
           offsetY = 40;
           vibrate();
         }
-      }else{
-        absorbing =false;
+      } else {
+        absorbing = false;
       }
       setState(() {});
     } else {
@@ -149,6 +149,7 @@ class _TikTokState extends State<TikTokPage> with TickerProviderStateMixin {
   /// 通过 [Transform.translate] 根据 [offsetX] 进行偏移
   /// 水平偏移量为 [ offsetX] /5 产生视差效果
   Widget buildMiddlePage() {
+    ///是否接受点击事件
     return AbsorbPointer(
         absorbing: absorbing,
         child: NotificationListener<OverscrollIndicatorNotification>(
@@ -159,7 +160,8 @@ class _TikTokState extends State<TikTokPage> with TickerProviderStateMixin {
                 onNotification: (notification) {
                   debugPrint("userscroll:${notification.metrics.pixels}");
                   // 当手指离开时，并且处于顶部则拦截PageView的滑动事件
-                  if (notification.direction == ScrollDirection.idle && notification.metrics.pixels==0.0) {
+                  if (notification.direction == ScrollDirection.idle &&
+                      notification.metrics.pixels == 0.0) {
                     setState(() {
                       absorbing = true;
                     });
@@ -181,9 +183,11 @@ class _TikTokState extends State<TikTokPage> with TickerProviderStateMixin {
   ///
   /// [offsetX] to 0.0
   void animateToMiddle() {
-    animationControllerX =
-        AnimationController(duration: Duration(milliseconds: offsetX.abs() * 1000 ~/ 500), vsync: this);
-    final curve = CurvedAnimation(parent: animationControllerX, curve: Curves.easeOutCubic);
+    animationControllerX = AnimationController(
+        duration: Duration(milliseconds: offsetX.abs() * 1000 ~/ 500),
+        vsync: this);
+    final curve = CurvedAnimation(
+        parent: animationControllerX, curve: Curves.easeOutCubic);
     animationX = Tween(begin: offsetX, end: 0.0).animate(curve)
       ..addListener(() {
         setState(() {
@@ -198,9 +202,11 @@ class _TikTokState extends State<TikTokPage> with TickerProviderStateMixin {
   ///
   /// [offsetX] to [screenWidth]
   void animateToLeft(double screenWidth) {
-    animationControllerX =
-        AnimationController(duration: Duration(milliseconds: offsetX.abs() * 1000 ~/ 500), vsync: this);
-    final curve = CurvedAnimation(parent: animationControllerX, curve: Curves.easeOutCubic);
+    animationControllerX = AnimationController(
+        duration: Duration(milliseconds: offsetX.abs() * 1000 ~/ 500),
+        vsync: this);
+    final curve = CurvedAnimation(
+        parent: animationControllerX, curve: Curves.easeOutCubic);
     animationX = Tween(begin: offsetX, end: screenWidth).animate(curve)
       ..addListener(() {
         setState(() {
@@ -215,9 +221,11 @@ class _TikTokState extends State<TikTokPage> with TickerProviderStateMixin {
   ///
   /// [offsetX] to -[screenWidth]
   void animateToRight(double screenWidth) {
-    animationControllerX =
-        AnimationController(duration: Duration(milliseconds: offsetX.abs() * 1000 ~/ 500), vsync: this);
-    final curve = CurvedAnimation(parent: animationControllerX, curve: Curves.easeOutCubic);
+    animationControllerX = AnimationController(
+        duration: Duration(milliseconds: offsetX.abs() * 1000 ~/ 500),
+        vsync: this);
+    final curve = CurvedAnimation(
+        parent: animationControllerX, curve: Curves.easeOutCubic);
     animationX = Tween(begin: offsetX, end: -screenWidth).animate(curve)
       ..addListener(() {
         setState(() {
@@ -232,9 +240,11 @@ class _TikTokState extends State<TikTokPage> with TickerProviderStateMixin {
   ///
   /// [offsetY] to 0.0
   void animateToTop() {
-    animationControllerY =
-        AnimationController(duration: Duration(milliseconds: offsetY.abs() * 1000 ~/ 40), vsync: this);
-    final curve = CurvedAnimation(parent: animationControllerY, curve: Curves.easeOutCubic);
+    animationControllerY = AnimationController(
+        duration: Duration(milliseconds: offsetY.abs() * 1000 ~/ 40),
+        vsync: this);
+    final curve = CurvedAnimation(
+        parent: animationControllerY, curve: Curves.easeOutCubic);
     animationY = Tween(begin: offsetY, end: 0.0).animate(curve)
       ..addListener(() {
         setState(() {
